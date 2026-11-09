@@ -1,0 +1,5 @@
+* text=auto
+# Shell scripts must keep LF endings to run on macOS/Linux, even when committed from Windows.
+*.sh text eol=lf
+*.ps1 text eol=crlf
+*.pdf binary

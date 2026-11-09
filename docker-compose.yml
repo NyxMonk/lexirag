@@ -1,0 +1,60 @@
+name: lexirag
+
+services:
+  db:
+    # Multi-arch image (amd64 + arm64), so it runs natively on Apple Silicon.
+    image: pgvector/pgvector:0.8.0-pg16
+    container_name: lexirag-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lexirag}
+      POSTGRES_USER: ${POSTGRES_USER:-lexirag}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env (run the setup script)}
+    ports:
+      # Bound to loopback only; the database is not reachable from the network.
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - lexirag_pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  # Optional containerised app (deployment rehearsal). Local development uses the scripts instead.
+  #   docker compose --profile full up -d --build
+  api:
+    profiles: ["full"]
+    build: ./backend
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-lexirag}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-lexirag}
+      BACKEND_HOST: 0.0.0.0
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - lexirag_storage:/data/storage
+      - lexirag_models:/data/models
+
+  web:
+    profiles: ["full"]
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000/api/v1}
+    depends_on: [api]
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT:-5173}:80"
+
+volumes:
+  lexirag_pgdata:
+    name: lexirag_pgdata
+  lexirag_storage:
+    name: lexirag_storage
+  lexirag_models:
+    name: lexirag_models

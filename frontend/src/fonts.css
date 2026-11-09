@@ -1,0 +1,64 @@
+/*
+ * Indic script faces, bundled so Hindi, Marathi, Bengali and Punjabi (Gurmukhi)
+ * render identically on Windows and macOS, fully offline.
+ *
+ * Each face is limited to its script block with unicode-range, so these families
+ * can sit first in the font stacks without affecting Latin text, and a file is
+ * only downloaded when a page contains that script.
+ */
+
+@font-face {
+  font-family: "LexiIndic Sans";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/noto-sans-devanagari/files/noto-sans-devanagari-devanagari-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0900-097F, U+1CD0-1CFF, U+A8E0-A8FF, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "LexiIndic Sans";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/noto-sans-bengali/files/noto-sans-bengali-bengali-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0980-09FF;
+}
+@font-face {
+  font-family: "LexiIndic Sans";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/noto-sans-gurmukhi/files/noto-sans-gurmukhi-gurmukhi-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0A00-0A7F;
+}
+
+@font-face {
+  font-family: "LexiIndic Serif";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/noto-serif-devanagari/files/noto-serif-devanagari-devanagari-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0900-097F, U+1CD0-1CFF, U+A8E0-A8FF, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "LexiIndic Serif";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/noto-serif-bengali/files/noto-serif-bengali-bengali-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0980-09FF;
+}
+@font-face {
+  font-family: "LexiIndic Serif";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/noto-serif-gurmukhi/files/noto-serif-gurmukhi-gurmukhi-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0A00-0A7F;
+}

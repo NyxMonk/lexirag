@@ -1,0 +1,27 @@
+# Runtime dependencies (pinned for reproducible installs on Windows and macOS, Python 3.13)
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+pydantic==2.11.4
+pydantic-settings==2.9.1
+SQLAlchemy==2.0.40
+alembic==1.15.2
+psycopg[binary]==3.2.9
+python-multipart==0.0.20
+httpx==0.28.1
+
+# Document processing
+pymupdf==1.25.3
+pytesseract==0.3.13
+pillow==11.1.0
+lingua-language-detector==2.1.0
+
+# Retrieval
+pgvector==0.3.6
+rank-bm25==0.2.2
+# PyPI ships CPU builds on Windows and CPU/MPS builds on macOS. For NVIDIA GPUs see README ("GPU acceleration").
+torch==2.6.0
+transformers==4.48.3
+sentence-transformers==3.4.1
+
+# Generation (Ollama and Gemini are called over HTTP with httpx)
+anthropic==1.14.0

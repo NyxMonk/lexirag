@@ -1,0 +1,48 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/public/pdfjs/
+*.tsbuildinfo
+.vite/
+
+# Uploaded documents (keep the directory itself)
+storage/*
+!storage/.gitkeep
+
+# Logs and temporary files
+logs/
+*.log
+npm-debug.log*
+tmp/
+*.tmp
+*.part
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Evaluation run outputs
+evaluation/results/
+
+# Local model caches (if MODEL_CACHE_DIR points inside the project)
+models/

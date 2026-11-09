@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98.4%;
+    --foreground: 0 0% 8%;
+    --surface: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 95.5%;
+    --secondary-foreground: 0 0% 12%;
+    --muted: 0 0% 95.5%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 0 0% 94.5%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 62% 42%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.5%;
+    --input: 0 0% 86%;
+    --ring: 0 0% 25%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 6%;
+    --foreground: 0 0% 93%;
+    --surface: 0 0% 8.5%;
+    --card: 0 0% 8.5%;
+    --card-foreground: 0 0% 93%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 93%;
+    --primary: 0 0% 93%;
+    --primary-foreground: 0 0% 8%;
+    --secondary: 0 0% 13%;
+    --secondary-foreground: 0 0% 93%;
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 60% 52%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 16%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 75%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  ::selection {
+    @apply bg-foreground text-background;
+  }
+}
+
+@layer components {
+  .label-caps {
+    @apply text-[11px] font-medium uppercase tracking-label text-muted-foreground;
+  }
+  .display {
+    @apply font-serif font-normal tracking-[-0.015em];
+  }
+}
+
+/* Citation highlight in the PDF text layer (text itself is transparent; the mark tints it). */
+.react-pdf__Page__textContent mark.lexi-hl {
+  background: rgb(250 204 21 / 0.38);
+  color: transparent;
+  border-radius: 2px;
+}
