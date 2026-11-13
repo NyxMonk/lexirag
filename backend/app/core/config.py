@@ -103,6 +103,8 @@ class Settings(BaseSettings):
     anthropic_effort: str = "medium"
     gemini_api_key: SecretStr | None = None
     gemini_model: str = "gemini-3.5-flash"
+    # Gemini thinking depth (minimal | low | medium | high); blank uses the model default. Lower is faster.
+    gemini_thinking_level: str = "low"
 
     @field_validator("database_url", "anthropic_api_key", "gemini_api_key", mode="before")
     @classmethod

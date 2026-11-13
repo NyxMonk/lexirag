@@ -140,6 +140,10 @@ class GeminiProvider:
         self._key = settings.gemini_api_key.get_secret_value()
         self._client = httpx.Client(base_url=self.base_url, timeout=settings.llm_timeout_seconds, transport=transport)
 
+    def _thinking_config(self) -> dict[str, object]:
+        level = self.settings.gemini_thinking_level.strip().lower()
+        return {"thinkingConfig": {"thinkingLevel": level}} if level else {}
+
     def generate(self, system: str, user: str) -> Generation:
         started = time.perf_counter()
         try:
@@ -155,6 +159,7 @@ class GeminiProvider:
                         "temperature": self.settings.llm_temperature,
                         "maxOutputTokens": self.settings.llm_max_output_tokens,
                         "responseMimeType": "application/json",
+                        **self._thinking_config(),
                     },
                 },
             )
