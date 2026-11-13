@@ -45,4 +45,4 @@ Thumbs.db
 evaluation/results/
 
 # Local model caches (if MODEL_CACHE_DIR points inside the project)
-models/
+/models/
