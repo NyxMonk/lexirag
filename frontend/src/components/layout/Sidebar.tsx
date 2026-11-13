@@ -1,4 +1,4 @@
-import { FileText, FolderClosed, LayoutGrid, MessageSquareText, Settings } from "lucide-react";
+import { FileText, FolderClosed, LayoutGrid, MessageSquareText, Scale, Settings } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 import { BrandLockup } from "@/components/brand/Brand";
@@ -10,6 +10,7 @@ const NAV = [
   { to: "/workspaces", label: "Workspaces", icon: FolderClosed },
   { to: "/documents", label: "Documents", icon: FileText },
   { to: "/assistant", label: "Assistant", icon: MessageSquareText },
+  { to: "/fir", label: "FIR explainer", icon: Scale },
 ];
 
 function navClass({ isActive }: { isActive: boolean }) {

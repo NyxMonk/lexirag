@@ -8,10 +8,13 @@ import type {
   DocumentQuery,
   DocumentRecord,
   DocumentStatus,
+  FirAnalysis,
+  FirAnalyzeRequest,
   HealthResponse,
   MessageCreate,
   MessageExchange,
   ModelsInfo,
+  QueryRequest,
   SystemInfo,
   Workspace,
   WorkspaceCreate,
@@ -105,6 +108,10 @@ export const api = {
     request<MessageExchange>("/chat/messages", json("POST", { ...payload, workspace_id: workspaceId })),
   sendMessage: (conversationId: string, payload: MessageCreate) =>
     request<MessageExchange>(`/chat/conversations/${conversationId}/messages`, json("POST", payload)),
+
+  /** One cited answer that is not saved as a conversation. */
+  query: (payload: QueryRequest) => request<AnswerResponse>("/chat/query", json("POST", payload)),
+  analyzeFir: (payload: FirAnalyzeRequest) => request<FirAnalysis>("/fir/analyze", json("POST", payload)),
 };
 
 export interface UploadHandle {

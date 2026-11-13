@@ -31,17 +31,17 @@ Browser (React SPA, :5173) ──HTTP/JSON──▶ FastAPI (:8000, /api/v1) ─
 
 ```
 backend/app/
-  api/v1/      system (health, info, settings), workspaces, documents (+process/status/retry/chunks), conversations, chat (search, query, conversations)
+  api/v1/      system (health, info, settings), workspaces, documents (+process/status/retry/chunks), conversations, chat (search, query, conversations), fir (analyze)
   core/        config, logging, error envelope (+ RAG error mapping), languages
   models/      Workspace, Document, DocumentChunk (vector(1024), page_spans, section_spans), Conversation, Message
   schemas/     Pydantic API contract (document, chat, system, ...)
-  services/    workspaces, documents, storage, processing (pipeline + queue), chat
-  rag/         extraction, ocr, language, tokens, chunking, model_store, embeddings, reranking, bm25, fusion, retrieval, llm, answering
+  services/    workspaces, documents, storage, processing (pipeline + queue), chat, fir (charge card)
+  rag/         extraction, ocr, language, tokens, chunking, model_store, embeddings, reranking, bm25, fusion, retrieval, llm, answering, fir (section/date parser) + data/offences.json (IPC/BNS reference table, validated: false)
   cli.py       download-models | models-status | check-models | ocr-status | process <id>
 backend/alembic/versions/   0001 schema · 0002 RAG tables/status · 0003 chunk page/section spans
 backend/tests/              unit, pipeline/API (fake embedder + fake LLM), models (real BGE-M3 + reranker); fixtures/ = SYNTHETIC PDFs
-frontend/src/               pages, features/{workspaces,documents,assistant}, hooks/queries.ts (polling), services/api.ts, types/api.ts, fonts.css
-evaluation/                 datasets/*.jsonl, benchmarks/run_eval.py, results/ (git-ignored)
+frontend/src/               pages, features/{workspaces,documents,assistant,fir}, hooks/queries.ts (polling), services/api.ts, types/api.ts, fonts.css
+evaluation/                 datasets/*.jsonl, benchmarks/{run_eval,fir_eval}.py, results/ and datasets/private/ (git-ignored)
 scripts/                    setup/start for Windows (.ps1) and macOS (.sh)
 ```
 

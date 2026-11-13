@@ -43,6 +43,8 @@ Thumbs.db
 
 # Evaluation run outputs
 evaluation/results/
+# Real, non-anonymised data used only for local evaluation (e.g. the ICDAR 2023 FIR dataset)
+evaluation/datasets/private/
 
 # Local model caches (if MODEL_CACHE_DIR points inside the project)
 /models/

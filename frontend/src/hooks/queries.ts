@@ -5,7 +5,9 @@ import {
   IN_PROGRESS_STATUSES,
   type DocumentQuery,
   type DocumentRecord,
+  type FirAnalyzeRequest,
   type MessageCreate,
+  type QueryRequest,
   type WorkspaceCreate,
 } from "@/types/api";
 
@@ -183,4 +185,12 @@ export function useSummarizeDocument() {
   return useMutation({
     mutationFn: ({ id, language }: { id: string; language: string }) => api.summarizeDocument(id, language),
   });
+}
+
+export function useAnalyzeFir() {
+  return useMutation({ mutationFn: (payload: FirAnalyzeRequest) => api.analyzeFir(payload) });
+}
+
+export function useQueryAnswer() {
+  return useMutation({ mutationFn: (payload: QueryRequest) => api.query(payload) });
 }

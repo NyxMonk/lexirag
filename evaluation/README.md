@@ -37,6 +37,20 @@ evaluation/
 2. Put the PDFs in `evaluation/datasets/<name>/`, and write questions with the pages and passages verified by hand. Set `validated: true` only after a fluent reviewer has checked the question and the expected answer.
 3. Cover each document language with questions in several query languages.
 
+## FIR parser evaluation
+
+`benchmarks/fir_eval.py` checks the FIR explainer's section and offence-date parser (`backend/app/rag/fir.py`). It runs offline, with no server, models or LLM.
+
+- `datasets/fir_sections_synthetic_v1.jsonl` contains 25 **synthetic** FIR snippets in English, Hindi, Marathi, Bengali and Punjabi, with gold `(section, code)` pairs, offence date and code. Two items are hard negatives (house, phone and amount numbers). Its scores are a regression check, not a quality claim.
+- `--icdar path/to/FIR_details.json` also reports coverage on the statute strings of the [ICDAR 2023 FIR dataset](https://github.com/legaldocumentprocessing/fir_dataset_icdar2023) (MIT licence).
+  - That dataset holds **real, non-anonymised FIRs** (West Bengal, 2017–2021, English and IPC only), and some involve sexual offences.
+  - Keep it outside the repo or under `datasets/private/` (git-ignored). Never commit, display or demo its images or names.
+  - It has no gold labels, so only aggregate coverage is reported.
+
+```bash
+backend/.venv/Scripts/python evaluation/benchmarks/fir_eval.py [--icdar evaluation/datasets/private/FIR_details.json]
+```
+
 ## Running
 
 The backend must be running with models downloaded. Answer metrics also need an LLM provider.

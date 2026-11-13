@@ -262,3 +262,50 @@ export interface ModelsInfo {
 export interface ApiErrorBody {
   error: { code: string; message: string; details?: unknown };
 }
+
+// ── FIR explainer (backend/app/schemas/fir.py) ──
+export type FirClassification = "cognizable" | "non-cognizable" | "bailable" | "non-bailable" | "depends";
+
+export interface FirAnalyzeRequest {
+  document_id?: string | null;
+  workspace_id?: string | null;
+  text?: string | null;
+  offence_date?: string | null;
+}
+
+export interface FirCharge {
+  section: string;
+  code: string | null;
+  code_source: "explicit" | "offence_date" | "unknown" | "other_act";
+  matched_text: string;
+  in_reference: boolean;
+  reference_section: string | null;
+  title: string | null;
+  kind: "offence" | "liability" | null;
+  punishment: string | null;
+  cognizable: FirClassification | null;
+  bailable: FirClassification | null;
+  court: string | null;
+  note: string | null;
+  corresponds_to: { code: string; section: string; title: string | null }[];
+}
+
+export interface FirAnalysis {
+  source: { kind: "document" | "text"; document_id: string | null; document_name: string | null; characters: number };
+  offence_date: string | null;
+  offence_date_source: "provided" | "occurrence" | "earliest" | "none";
+  date_candidates: { date: string; text: string; kind: "occurrence" | "report" | "other" }[];
+  applicable_code: "IPC" | "BNS" | null;
+  bns_commencement: string;
+  charges: FirCharge[];
+  reference: { validated: boolean; sources: string[]; caveats: string[] };
+  warnings: string[];
+  disclaimer: string;
+}
+
+export interface QueryRequest {
+  workspace_id: string;
+  question: string;
+  document_ids?: string[] | null;
+  response_language: ResponseLanguage;
+}

@@ -8,6 +8,7 @@ import { AssistantPage } from "@/pages/AssistantPage";
 import { DashboardPage } from "@/pages/DashboardPage";
 import { DocumentsPage } from "@/pages/DocumentsPage";
 import { DocumentViewerPage } from "@/pages/DocumentViewerPage";
+import { FirPage } from "@/pages/FirPage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 import { SettingsPage } from "@/pages/SettingsPage";
 import { WorkspaceDetailPage } from "@/pages/WorkspaceDetailPage";
@@ -24,6 +25,7 @@ export const routes: RouteObject[] = [
       { path: "documents", element: <DocumentsPage /> },
       { path: "documents/:documentId", element: <DocumentViewerPage /> },
       { path: "assistant", element: <AssistantPage /> },
+      { path: "fir", element: <FirPage /> },
       { path: "settings", element: <SettingsPage /> },
       { path: "*", element: <NotFoundPage /> },
     ],
