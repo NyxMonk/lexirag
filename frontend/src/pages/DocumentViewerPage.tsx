@@ -6,6 +6,7 @@ import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { EmptyState } from "@/components/EmptyState";
 import { ErrorState } from "@/components/ErrorState";
 import { LanguageSelect } from "@/components/LanguageSelect";
+import { ResizeHandle, usePanelWidth } from "@/components/ResizeHandle";
 import { StatusBadge, statusHint } from "@/components/StatusBadge";
 import { AssistantMessage } from "@/features/assistant/AnswerView";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,11 @@ import { cn, formatBytes, formatDateTime } from "@/lib/utils";
 import { api, ApiError } from "@/services/api";
 
 // pdf.js is large; load it only when a document is opened.
+const PANEL_DEFAULT = 380;
+const PANEL_MIN = 300;
+// Leave at least 420 px for the PDF next to the app sidebar.
+const panelMax = () => Math.max(PANEL_MIN, window.innerWidth - 248 - 420);
+
 const PdfViewer = lazy(() => import("@/features/documents/PdfViewer").then((m) => ({ default: m.PdfViewer })));
 
 const LANGUAGE_STATUS: Record<string, string> = {
@@ -48,6 +54,7 @@ export function DocumentViewerPage() {
   const quote = (location.state as { quote?: string | null } | null)?.quote ?? null;
   const [page, setPage] = useState(() => Number(params.get("page")) || 1);
   const [numPages, setNumPages] = useState<number | null>(null);
+  const panel = usePanelWidth("lexirag.viewer.panelWidth", PANEL_DEFAULT, PANEL_MIN, panelMax);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const del = useDeleteDocument();
   const process = useProcessDocument();
@@ -187,7 +194,15 @@ export function DocumentViewerPage() {
           )}
         </section>
 
-        <aside className="w-[340px] shrink-0 overflow-y-auto border-l bg-surface">
+        <ResizeHandle
+          label="Resize document details panel"
+          width={panel.width}
+          onResize={panel.setWidth}
+          onReset={panel.reset}
+          min={PANEL_MIN}
+          max={panelMax()}
+        />
+        <aside style={{ width: panel.width }} className="shrink-0 overflow-y-auto border-l bg-surface">
           <div className="border-b px-5 py-5">
             <p className="label-caps">Document</p>
             {d ? (

@@ -70,6 +70,8 @@ class Settings(BaseSettings):
     # When false, models must be fetched beforehand with `python -m app.cli download-models`.
     models_allow_download: bool = False
     model_device: str = "auto"  # auto | cpu | cuda | mps
+    # Load already-downloaded models in the background at startup, so the first question is not slow.
+    models_warmup: bool = True
     embedding_model: str = "BAAI/bge-m3"
     embedding_dimension: int = 1024
     embedding_batch_size: int = 8

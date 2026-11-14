@@ -32,6 +32,9 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
         from app.services.processing import recover_interrupted
 
         recover_interrupted()
+    from app.services.warmup import start_warmup
+
+    start_warmup()
     logger.info("LexiRAG API %s ready. Storage: %s", __version__, settings.storage_path)
     yield
     from app.services.processing import queue

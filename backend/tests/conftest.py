@@ -32,6 +32,7 @@ os.environ["ANTHROPIC_API_KEY"] = ""
 os.environ["AUTO_PROCESS_UPLOADS"] = "false"
 os.environ["RERANKER_ENABLED"] = "false"
 os.environ["OCR_ENABLED"] = "false"
+os.environ["MODELS_WARMUP"] = "false"  # tests use fake models; never load real ones at startup
 os.environ["CHUNK_TARGET_TOKENS"] = "120"
 os.environ["CHUNK_OVERLAP_TOKENS"] = "20"
 os.environ["CHUNK_MIN_TOKENS"] = "30"
